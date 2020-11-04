@@ -1,0 +1,9 @@
+FROM node:lts-alpine
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+
+RUN yarn install && yarn global add nodemon
+
+CMD nodemon -L index.js
