@@ -21,4 +21,4 @@ Requirements:
 Personal add-ons:
 - [ ] Use PostgresDB for persistent storage
 - [x] Add TravisCI implementation
-- [ ] Depoloy on Heroku
+- [x] Depoloy on [Heroku](https://applauz-express-assessment.herokuapp.com/)
