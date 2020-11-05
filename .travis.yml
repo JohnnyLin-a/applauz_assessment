@@ -1,6 +1,7 @@
 language: node_js
 node_js:
     - lts/*
+dist: focal
 cache:
     yarn: true
     directories:
