@@ -1,5 +1,7 @@
 # Applauz assessment
 
+[![Build Status](https://travis-ci.org/JohnnyLin-a/applauz_assessment.svg?branch=main)](https://travis-ci.org/JohnnyLin-a/applauz_assessment)
+
 Requirements:
 - [x] Build an API service in Node. Its purpose would be to manage user accounts.
         You can build your own or choose any frameworks available such as Express
