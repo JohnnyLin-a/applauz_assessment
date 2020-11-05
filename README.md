@@ -20,5 +20,5 @@ Requirements:
 
 Personal add-ons:
 - [ ] Use PostgresDB for persistent storage
-- [ ] Add TravisCI implementation
+- [x] Add TravisCI implementation
 - [ ] Depoloy on Heroku
