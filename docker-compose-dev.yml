@@ -31,3 +31,7 @@ services:
 networks:
   applauz-backend:
     driver: bridge
+
+volumes:
+  applauz_db_data:
+    driver: local
