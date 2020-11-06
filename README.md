@@ -11,9 +11,9 @@ Requirements:
 - [ ] Endpoints:
     - [ ] Get a list of users with optional query parameters
     - [ ] Create a single or multiple users
-    - [ ] There should be validation
-    - [ ] There should be adequately structured responses and error handling
-    - [ ] All requests would need API Key authentication (can be hardcoded)
+    - [x] There should be validation
+    - [x] There should be adequately structured responses and error handling
+    - [x] All requests would need API Key authentication (can be hardcoded)
     - [ ] Some documentation in your repo to explain how to run this service \
                 as well as how to use the endpoints would be appreciated
     - [ ] Bonus: unit testing
