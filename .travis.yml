@@ -1,7 +1,7 @@
 language: node_js
 node_js:
     - lts/*
-dist: focal
+dist: xenial
 cache:
     yarn: true
     directories:
@@ -9,18 +9,15 @@ cache:
 
 before_script:
   - cp .env.travis .env
-  - psql -c 'create database travis_ci_test;' -U postgres -p 5433
-  - psql -U postgres -d travis_ci_test -p 5433 < ./applauz_database/create.sql
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -U postgres -d travis_ci_test < ./applauz_database/create.sql
 
 services:
   - postgresql
 
 addons:
   postgresql: "12.4"
-#   apt:
-#     packages:
-#     - postgresql-12
-#     - postgresql-client-12
-env:
-  global:
-  - PGPORT=5433
+  apt:
+    packages:
+    - postgresql-12
+    - postgresql-client-12
