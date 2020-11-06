@@ -7,9 +7,11 @@ module.exports = {
     api_key: process.env.API_KEY,
     port: process.env.PORT,
 
-    postgres_user: process.env.POSTGRES_USER,
-    postgres_password: process.env.POSTGRES_PASSWORD,
-    postgres_db: process.env.POSTGRES_DB,
-    postgres_host: process.env.POSTGRES_HOST,
-    postgres_port: process.env.POSTGRES_PORT,
+    postgres_config: {
+        user: process.env.POSTGRES_USER,
+        host: process.env.POSTGRES_HOST,
+        database: process.env.POSTGRES_DB,
+        password: process.env.POSTGRES_PASSWORD,
+        port: process.env.POSTGRES_PORT,
+    }
 }
