@@ -16,7 +16,7 @@ Requirements:
     - [x] All requests would need API Key authentication (can be hardcoded)
     - [ ] Some documentation in your repo to explain how to run this service \
                 as well as how to use the endpoints would be appreciated
-    - [ ] Bonus: unit testing
+    - [x] Bonus: unit testing
 
 
 Personal add-ons:
