@@ -2,5 +2,5 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
-    appKey: process.env.APP_KEY
+    api_key: process.env.API_KEY
 }
