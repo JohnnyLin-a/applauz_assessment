@@ -15,12 +15,12 @@ before_script:
 services:
   - postgresql
 
-addons:
-  postgresql: "12.4"
-  apt:
-    packages:
-    - postgresql-12
-    - postgresql-client-12
+# addons:
+#   postgresql: "12.4"
+#   apt:
+#     packages:
+#     - postgresql-12
+#     - postgresql-client-12
 env:
   global:
   - PGPORT=5433
