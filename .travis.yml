@@ -8,4 +8,11 @@ cache:
         - node_modules
 
 before_script:
-  - cp .env.example .env
+  - cp .env.travis .env
+  - psql -c 'create database travis_ci_test;' -U postgres
+
+services:
+  - postgresql
+
+addons:
+  postgresql: "13.0"
