@@ -10,9 +10,10 @@ cache:
 before_script:
   - cp .env.travis .env
   - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -U postgres -d travis_ci_test < ./applauz_database/create.sql
 
 services:
   - postgresql
 
 addons:
-  postgresql: "13.0"
+  postgresql: "12.4"
