@@ -11,3 +11,23 @@ services:
       - "./:/app"
     ports:
       - "3000:3000"
+    networks:
+      - applauz-backend
+  applauz_db:
+    image: postgres:13-alpine
+    container_name: applauz_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "5432:5432"
+    env_file:
+      - postgres.env
+    volumes:
+      - applauz_db_data:/var/lib/postgresql/data
+      - ./applauz_database/:/applauz_database/
+    networks:
+      - applauz-backend
+      
+networks:
+  applauz-backend:
+    driver: bridge
