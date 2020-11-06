@@ -3,7 +3,7 @@ const cors = require('cors');
 const routes = require('../api');
 const config = require('../config');
 
-const expressLoader = ({ app }) => {
+const expressLoader = async ({ app }) => {
     app.get('/', (req, res) => {
         res.send('Hello World!');
     });
