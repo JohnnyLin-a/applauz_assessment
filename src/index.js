@@ -1,18 +1,17 @@
 const express = require('express');
-const Joi = require('joi');
+const loaders = require('./loaders');
 
-
-const startServer = () => {
+const startServer = async () => {
     const app = express();
 
-    app.get('/', (req, res) => {
-        res.send('Hello World!');
-    });
+
+    await loaders({ expressApp: app });
 
     const port = process.env.PORT || 3000
     app.listen(port, () => {
         console.log(`Listening on port ${port}...`);
-    })
+    });
+
 }
 
 
