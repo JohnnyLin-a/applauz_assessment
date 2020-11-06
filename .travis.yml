@@ -1,7 +1,7 @@
 language: node_js
 node_js:
     - lts/*
-dist: xenial
+dist: focal
 cache:
     yarn: true
     directories:
@@ -15,9 +15,9 @@ before_script:
 services:
   - postgresql
 
-addons:
-  postgresql: "12.4"
-  apt:
-    packages:
-    - postgresql-12
-    - postgresql-client-12
+# addons:
+#   postgresql: "12"
+  # apt:
+  #   packages:
+  #   - postgresql-12
+  #   - postgresql-client-12
