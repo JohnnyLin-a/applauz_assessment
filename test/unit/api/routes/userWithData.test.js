@@ -115,8 +115,7 @@ describe("Route: /api/users/ (With data in DB)", () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.success).toBe(true);
         expect(typeof response.body.id).toBe("number");
-
-
+        testUsers[3].id = response.body.id;
     });
 
     test("POST /api/users/ (invalid body)", async () => {
