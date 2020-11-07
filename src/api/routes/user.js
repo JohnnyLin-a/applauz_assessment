@@ -15,6 +15,7 @@ module.exports = (app) => {
       if (error) {
         res.statusCode = error.statusCode;
         res.json(error.errorToSend);
+        return;
       }
       if (result.length === 0) {
         res.statusCode = 404;
@@ -29,6 +30,7 @@ module.exports = (app) => {
     if (error) {
       res.statusCode = error.statusCode;
       res.json(error.errorToSend);
+      return;
     }
     if (result.length === 0) {
       // 404 here, otherwise if empty array is returned,
@@ -46,6 +48,7 @@ module.exports = (app) => {
     if (error) {
       res.statusCode = error.statusCode;
       res.json(error.errorToSend);
+      return;
     }
     if (result === null) {
       res.statusCode = 404;
@@ -61,6 +64,7 @@ module.exports = (app) => {
     if (error) {
       res.statusCode = error.statusCode;
       res.json(error.errorToSend);
+      return;
     }
     return res.json({ success: true, id: result });
   });
@@ -71,6 +75,7 @@ module.exports = (app) => {
     if (error) {
       res.statusCode = error.statusCode;
       res.json(error.errorToSend);
+      return;
     }
     if (result === false) {
       res.statusCode = 404;
