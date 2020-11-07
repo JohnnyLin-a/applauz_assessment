@@ -16,6 +16,30 @@ const getUser = async (id) => {
     }
 }
 
+const getUsers = async () => {
+    const query = "SELECT * FROM users ORDER BY id";
+    try {
+        const { rows } = await pool.query(query);
+        return rows;
+    } catch (err) {
+        console.log("Get users failed", err);
+        return err;
+    }
+}
+
+const getUserByName = async (name) => {
+    const query = "SELECT * FROM users WHERE name = $1";
+    const values = [name];
+
+    try {
+        const { rows } = await pool.query(query, values);
+        return rows;
+    } catch (err) {
+        console.log("Get user by name failed", err);
+        return err;
+    }
+}
+
 const insertUser = async (name) => {
     const query = "INSERT INTO users (name) VALUES ($1) RETURNING id";
     const values = [name];
@@ -49,4 +73,6 @@ module.exports = {
     getUser,
     insertUser,
     deleteUser,
+    getUsers,
+    getUserByName
 }
