@@ -11,7 +11,7 @@ const validateApiKey = api_key => {
 
 const createUser = async (user) => {
     const schema = Joi.object({
-        name: Joi.string().min(3).required(),
+        name: Joi.string().min(3).max(30).required(),
     });
 
     const { error } = schema.validate(user);
@@ -42,7 +42,7 @@ const getUser = async (id) => {
 
 const getUserByName = async (name) => {
     const schema = Joi.object({
-        name: Joi.string().min(3).required(),
+        name: Joi.string().min(3).max(30).required(),
     });
 
     const { error } = schema.validate({ name });
