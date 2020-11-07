@@ -7,7 +7,7 @@ describe("Middleware: isAuth", () => {
     let nextFunction = jest.fn();
 
     beforeEach(() => {
-        mockRequest = { body: {} };
+        mockRequest = { headers: {} };
         mockResponse = {
             json: jest.fn()
         };
@@ -21,7 +21,7 @@ describe("Middleware: isAuth", () => {
     });
 
     test('null api_key', async () => {
-        mockRequest.body.api_key = null;
+        mockRequest.headers.api_key = null;
         const expectedResponse = { error: "You are unauthorized to proceed (No api_key)" };
         isAuth(mockRequest, mockResponse, nextFunction)
 
@@ -30,7 +30,7 @@ describe("Middleware: isAuth", () => {
 
     // Remove empty string test because it has a possibility that the api_key itself is empty string
     // test('empty string api_key', async () => {
-    //     mockRequest.body.api_key = "";
+    //     mockRequest.headers.api_key = "";
     //     const expectedResponse = { error: "You are unauthorized to proceed (Wrong api_key)" };
     //     isAuth(mockRequest, mockResponse, nextFunction)
 
@@ -38,7 +38,7 @@ describe("Middleware: isAuth", () => {
     // });
 
     test('non-string api_key', async () => {
-        mockRequest.body.api_key = 1;
+        mockRequest.headers.api_key = 1;
         const expectedResponse = { error: "You are unauthorized to proceed (Wrong api_key)" };
         isAuth(mockRequest, mockResponse, nextFunction)
 
@@ -47,7 +47,7 @@ describe("Middleware: isAuth", () => {
 
     test('wrong api_key', async () => {
         // Concatenating the corerect key to ensure it is wrong.
-        mockRequest.body.api_key = "WRONG_API_KEY" + config.api_key;
+        mockRequest.headers.api_key = "WRONG_API_KEY" + config.api_key;
         const expectedResponse = { error: "You are unauthorized to proceed (Wrong api_key)" };
         isAuth(mockRequest, mockResponse, nextFunction)
 
@@ -55,7 +55,7 @@ describe("Middleware: isAuth", () => {
     });
 
     test('correct api_key', async () => {
-        mockRequest.body.api_key = config.api_key;
+        mockRequest.headers.api_key = config.api_key;
         isAuth(mockRequest, mockResponse, nextFunction)
 
         expect(nextFunction).toHaveBeenCalled();
