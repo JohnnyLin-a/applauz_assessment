@@ -36,8 +36,25 @@ module.exports = (app) => {
     return res.json(users).status(200);
   });
 
-  route.get('/:id', middlewares.isAuth, (req, res) => {
-    return res.json({ req: "GET" }).status(200);
+  route.get('/:id(\\d+)', middlewares.isAuth, async (req, res) => {
+    const result = await getUser(parseInt(req.params.id));
+    if (result instanceof Error) {
+      if (result.isJoi) {
+        res.statusCode = 400;
+        res.json({ error: result.details[0].message });
+        return;
+      }
+      // if it isn't Joi, it's Postgres
+      res.statusCode = 500;
+      res.send({ error: result.detail });
+      return;
+    }
+    if (result === null) {
+      res.statusCode = 404;
+      res.send({ error: "User not found" });
+      return;
+    }
+    return res.json(result).status(200);
   });
 
   route.post('/', middlewares.isAuth, async (req, res) => {
