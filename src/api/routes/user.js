@@ -24,20 +24,20 @@ module.exports = (app) => {
       return res.json(result[0]).status(200);
     }
     // No query string
-    const users = await getUsers();
+    const result = await getUsers();
     const error = validateError(result);
     if (error) {
       res.statusCode = error.statusCode;
       res.json(error.errorToSend);
     }
-    if (users.length === 0) {
+    if (result.length === 0) {
       // 404 here, otherwise if empty array is returned,
       // the end user can think that the app might not be working.
       res.statusCode = 404;
       res.send({ error: "No registered user" });
       return;
     }
-    return res.json(users).status(200);
+    return res.json(result).status(200);
   });
 
   route.get('/:id(\\d+)', middlewares.isAuth, async (req, res) => {
