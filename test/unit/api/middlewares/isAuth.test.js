@@ -1,5 +1,5 @@
-const isAuth = require('../../../src/api/middlewares/isAuth');
-const config = require('../../../src/config');
+const isAuth = require('../../../../src/api/middlewares/isAuth');
+const config = require('../../../../src/config');
 
 describe("Middleware: isAuth", () => {
     let mockRequest = {};
