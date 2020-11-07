@@ -1,6 +1,7 @@
 const { Router, Request, Response } = require('express');
 const middlewares = require('../middlewares');
 const { createUser, getUser, getUsers, getUserByName, deleteUser } = require('../../services/auth');
+const { validateError } = require('../../helpers/api/routes/userHelper');
 const route = Router();
 
 module.exports = (app) => {
@@ -8,17 +9,12 @@ module.exports = (app) => {
 
   route.get('/', middlewares.isAuth, async (req, res) => {
     if (req.query.name) {
+      // With query string
       const result = await getUserByName(req.query.name);
-      if (result instanceof Error) {
-        if (result.isJoi) {
-          res.statusCode = 400;
-          res.json({ error: result.details[0].message });
-          return;
-        }
-        // if it isn't Joi, it's Postgres
-        res.statusCode = 500;
-        res.send({ error: result.detail });
-        return;
+      const error = validateError(result);
+      if (error) {
+        res.statusCode = error.statusCode;
+        res.json(error.errorToSend);
       }
       if (result.length === 0) {
         res.statusCode = 404;
@@ -27,7 +23,13 @@ module.exports = (app) => {
       }
       return res.json(result[0]).status(200);
     }
+    // No query string
     const users = await getUsers();
+    const error = validateError(result);
+    if (error) {
+      res.statusCode = error.statusCode;
+      res.json(error.errorToSend);
+    }
     if (users.length === 0) {
       res.statusCode = 404;
       res.send({ error: "No users" });
@@ -38,16 +40,10 @@ module.exports = (app) => {
 
   route.get('/:id(\\d+)', middlewares.isAuth, async (req, res) => {
     const result = await getUser(parseInt(req.params.id));
-    if (result instanceof Error) {
-      if (result.isJoi) {
-        res.statusCode = 400;
-        res.json({ error: result.details[0].message });
-        return;
-      }
-      // if it isn't Joi, it's Postgres
-      res.statusCode = 500;
-      res.send({ error: result.detail });
-      return;
+    const error = validateError(result);
+    if (error) {
+      res.statusCode = error.statusCode;
+      res.json(error.errorToSend);
     }
     if (result === null) {
       res.statusCode = 404;
@@ -59,32 +55,20 @@ module.exports = (app) => {
 
   route.post('/', middlewares.isAuth, async (req, res) => {
     const result = await createUser(req.body);
-    if (result instanceof Error) {
-      if (result.isJoi) {
-        res.statusCode = 400;
-        res.json({ error: result.details[0].message });
-        return;
-      }
-      // if it isn't Joi, it's Postgres
-      res.statusCode = 500;
-      res.send({ error: result.detail });
-      return;
+    const error = validateError(result);
+    if (error) {
+      res.statusCode = error.statusCode;
+      res.json(error.errorToSend);
     }
     return res.json({ success: true, id: result });
   });
 
   route.delete('/', middlewares.isAuth, async (req, res) => {
     const result = await deleteUser(req.body.id);
-    if (result instanceof Error) {
-      if (result.isJoi) {
-        res.statusCode = 400;
-        res.json({ error: result.details[0].message });
-        return;
-      }
-      // if it isn't Joi, it's Postgres
-      res.statusCode = 500;
-      res.send({ error: result.detail });
-      return;
+    const error = validateError(result);
+    if (error) {
+      res.statusCode = error.statusCode;
+      res.json(error.errorToSend);
     }
     if (result === false) {
       res.statusCode = 404;
