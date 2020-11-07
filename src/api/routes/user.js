@@ -31,8 +31,10 @@ module.exports = (app) => {
       res.json(error.errorToSend);
     }
     if (users.length === 0) {
+      // 404 here, otherwise if empty array is returned,
+      // the end user can think that the app might not be working.
       res.statusCode = 404;
-      res.send({ error: "No users" });
+      res.send({ error: "No registered user" });
       return;
     }
     return res.json(users).status(200);
