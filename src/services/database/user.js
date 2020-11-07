@@ -1,11 +1,11 @@
-const { pool } = require('./index');
+const { getPool } = require('./index');
 
 const getUser = async (id) => {
     const query = "SELECT * FROM users WHERE id = $1";
     const values = [id];
 
     try {
-        const { rows } = await pool.query(query, values);
+        const { rows } = await getPool().query(query, values);
         if (rows.length > 0) {
             return rows[0];
         }
@@ -19,7 +19,7 @@ const getUser = async (id) => {
 const getUsers = async () => {
     const query = "SELECT * FROM users ORDER BY id";
     try {
-        const { rows } = await pool.query(query);
+        const { rows } = await getPool().query(query);
         return rows;
     } catch (err) {
         console.log("Get users failed", err);
@@ -32,7 +32,7 @@ const getUserByName = async (name) => {
     const values = [name];
 
     try {
-        const { rows } = await pool.query(query, values);
+        const { rows } = await getPool().query(query, values);
         return rows;
     } catch (err) {
         console.log("Get user by name failed", err);
@@ -45,7 +45,7 @@ const insertUser = async (name) => {
     const values = [name];
 
     try {
-        const { rows } = await pool.query(query, values);
+        const { rows } = await getPool().query(query, values);
         return rows[0];
     } catch (err) {
         console.log("Insert user failed", err);
@@ -58,7 +58,7 @@ const deleteUser = async (id) => {
     const values = [id];
 
     try {
-        const { rowCount } = await pool.query(query, values);
+        const { rowCount } = await getPool().query(query, values);
         if (rowCount !== 0) {
             return true;
         }
