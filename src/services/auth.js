@@ -57,10 +57,24 @@ const getUsers = async () => {
     return await UserDAO.getUsers();
 }
 
+const deleteUser = async (id) => {
+    const schema = Joi.object({
+        id: Joi.number().integer().min(1).required(),
+    });
+
+    const { error } = schema.validate({ id });
+    if (error) {
+        return error;
+    }
+
+    return await UserDAO.deleteUser(id);
+}
+
 module.exports = {
     validateApiKey,
     createUser,
     getUser,
     getUsers,
     getUserByName,
+    deleteUser,
 }
