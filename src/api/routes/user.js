@@ -20,9 +20,19 @@ module.exports = (app) => {
         res.send({ error: result.detail });
         return;
       }
+      if (result.length === 0) {
+        res.statusCode = 404;
+        res.send({ error: "User not found" });
+        return;
+      }
       return res.json(result[0]).status(200);
     }
     const users = await getUsers();
+    if (users.length === 0) {
+      res.statusCode = 404;
+      res.send({ error: "No users" });
+      return;
+    }
     return res.json(users).status(200);
   });
 
