@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
+import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 // import { networkRequest } from '../helpers/networkHelper';
 
@@ -12,7 +13,7 @@ const Client = () => {
 
     const [headers, setHeaders] = useState([])
     const [params, setParams] = useState([]);
-    const [body, setBody] = useState({});
+    const [body, setBody] = useState("");
 
     const [headerChecked, setHeaderChecked] = useState(true);
     const [paramsChecked, setParamsChecked] = useState(false);
@@ -20,6 +21,8 @@ const Client = () => {
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
+
+    const [jsonParseError, setJsonParseError] = useState(false);
 
     const onClickSend = (e) => {
         console.log("onClickSend")
@@ -187,6 +190,20 @@ const Client = () => {
                                 </h3>
                             </div>
                         </div>
+                        {bodyChecked && <div>
+                            {jsonParseError && <Alert variant="danger">JSON syntax error</Alert>}
+                            <Form.Group controlId="exampleForm.ControlTextarea1">
+                                <Form.Control as="textarea" rows={5} onChange={e => {
+                                    try {
+                                        JSON.parse(e.target.value);
+                                        setJsonParseError(false);
+                                    } catch (err) {
+                                        setJsonParseError(true);
+                                    }
+                                    setBody(e.target.value);
+                                }} />
+                            </Form.Group>
+                        </div>}
                     </Col>
                 </Row>
             </div>
