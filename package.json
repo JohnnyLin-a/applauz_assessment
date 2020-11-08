@@ -17,7 +17,8 @@
   },
   "scripts": {
     "start": "node ./src/index.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "heroku-prebuild": "cd web-client && yarn build"
   },
   "repository": {
     "type": "git",
