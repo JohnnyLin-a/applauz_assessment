@@ -1,4 +1,4 @@
-export const networkRequest = async (endpoint: string, method: string, headers, params, body, callback: function) => {
+export const networkRequest = async (endpoint: string, method: string, headers, params: Array, body, callback: function) => {
     let fetchOptions = { method, cors: "cors" };
     if (headers) fetchOptions.headers = headers;
     if (params) endpoint += "?" + new URLSearchParams(params);
