@@ -7,10 +7,12 @@ import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import React, { useState } from 'react';
+import { networkRequest } from '../helpers/networkHelper';
 // import { networkRequest } from '../helpers/networkHelper';
 
 const Client = () => {
     const [method, setMethod] = useState("GET");
+    const [endpoint, setEndpoint] = useState("");
 
     const [headers, setHeaders] = useState([])
     const [params, setParams] = useState([]);
@@ -28,8 +30,58 @@ const Client = () => {
     const [responses, setResponses] = useState([]);
 
 
-    const onClickSend = (e) => {
-        console.log("onClickSend")
+    const onClickSend = () => {
+        setMessage("");
+        const sendMethod = method;
+        console.log('method', sendMethod);
+
+        let sendEndpoint = endpoint;
+        console.log('endpoint', sendEndpoint);
+
+        let sendHeaders = null;
+        if (headerChecked && headers.length !== 0) {
+            sendHeaders = new Headers();
+            headers.forEach(e => {
+                sendHeaders.append(e.key, e.value);
+            });
+        }
+        console.log("sendHeaders", sendHeaders);
+
+        let sendParams = null;
+        if (paramsChecked && params.length !== 0) {
+            sendParams = [];
+            params.forEach(e => {
+                sendParams.push([e.key, e.value]);
+            });
+
+        }
+        console.log('sendParams', sendParams);
+
+        let sendBody = null;
+        if (bodyChecked) {
+            if (sendMethod === "GET") {
+                setMessage("You cannot have a body in a GET request");
+                return;
+            }
+            if (body.length !== 0 && jsonParseError === false) {
+                console.log('body.length !== 0', body.length !== 0);
+                if (jsonParseError === false) {
+                    console.log('jsonParseError === false', jsonParseError === false);
+                    sendBody = JSON.parse(body);
+                }
+            } else {
+                setMessage("Check you body's JSON syntax");
+                setError(true);
+                return;
+            }
+        }
+        console.log('sendBody', sendBody);
+
+        networkRequest(sendEndpoint, sendMethod, sendHeaders, sendParams, sendBody, (res) => {
+            let newResponses = [res, ...responses];
+            setResponses(newResponses);
+        })
+
     }
 
     return (
@@ -61,7 +113,9 @@ const Client = () => {
                                         </div>
                                     </div>
                                     <div className="flex-fill" >
-                                        <input type="text" className="form-control" placeholder="/api/users/" />
+                                        <input type="text" className="form-control" placeholder="/api/users/" value={endpoint} onChange={(e) => {
+                                            setEndpoint(e.target.value);
+                                        }} />
                                     </div>
                                     <div className="input-group-append">
                                         <button type="button" className="btn btn-primary btn-block" onClick={onClickSend}>Send</button>
@@ -222,7 +276,7 @@ const Client = () => {
                     {responses.map((response, index) =>
                         <Row key={index}>
                             <Card className="p-4" style={{ width: '100%' }}>
-                                <Card.Title>{"Status code: " + response.status}</Card.Title>
+                                <Card.Title style={response.status >= 200 && response.status < 300 ? { color: "green" } : { color: "red" }}>{"Status code: " + response.status}</Card.Title>
                                 <Card.Body>{response.data}</Card.Body>
                             </Card>
                         </Row>
