@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const routes = require('../api');
 const config = require('../config');
 
@@ -14,7 +13,6 @@ const expressLoader = async ({ app }) => {
     app.use("/api", routes());
 
     app.enable('trust proxy');
-    app.use(cors());
 };
 
 module.exports = expressLoader;
