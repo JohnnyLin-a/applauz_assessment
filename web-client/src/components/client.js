@@ -248,8 +248,12 @@ const Client = () => {
                         </div>
                         {bodyChecked && <div>
                             {jsonParseError && <Alert variant="danger">JSON syntax error</Alert>}
-                            <Form.Group controlId="exampleForm.ControlTextarea1">
-                                <Form.Control as="textarea" rows={5} onChange={e => {
+                            <Form.Group>
+                                <Form.Control as="textarea" placeholder={
+                                    `{
+    "id": 1
+}`
+                                } rows={5} onChange={e => {
                                     try {
                                         JSON.parse(e.target.value);
                                         setJsonParseError(false);
