@@ -21,6 +21,7 @@ Alternatively to running this project locally, I have hosted this project on [He
 ```
 # Copy and rename example env files for proper ones.
 cp .env.example .env
+cp web-client/.env.example web-client/.env
 cp postgres.env.example postgres.env
 
 # Setup Docker environment (may require sudo)
