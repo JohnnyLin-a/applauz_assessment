@@ -2,13 +2,23 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
 import React, { useState } from 'react';
 // import { networkRequest } from '../helpers/networkHelper';
 
 const Client = () => {
-    const [params, setParams] = useState([]);
-    const [body, setBody] = useState();
     const [method, setMethod] = useState("GET");
+
+    const [header, setHeader] = useState({})
+    const [params, setParams] = useState([]);
+    const [body, setBody] = useState({});
+
+    const [headerChecked, setHeaderChecked] = useState(true);
+    const [paramsChecked, setParamsChecked] = useState(false);
+    const [bodyChecked, setBodyChecked] = useState(false);
+
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState(false);
 
     const onClickSend = (e) => {
         console.log("onClickSend")
@@ -19,6 +29,13 @@ const Client = () => {
             <div className="mt-4 mb-4">
                 <h1>Web client</h1>
             </div>
+            {message !== "" &&
+                <div>
+                    <Alert variant={error ? "danger" : "success"}>
+                        {message}
+                    </Alert>
+                </div>
+            }
             <div>
                 <Row>
                     <Col md={12}>
@@ -44,6 +61,39 @@ const Client = () => {
                                 </div>
                             </div>
                         </form>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col className="text-center">
+                        <div className="px-5 mx-auto form-check-inline" onClick={() => { setHeaderChecked(!headerChecked) }}>
+                            <input className="my-auto mr-3" type="checkbox" name="headerChecked" checked={headerChecked} onChange={() => { setHeaderChecked(!headerChecked) }} />
+                            <div className="my-auto ">
+                                <h3 >
+                                    Header
+                                </h3>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col className="text-center">
+                        <div className="px-5 mx-auto form-check-inline" onClick={() => { setParamsChecked(!paramsChecked) }}>
+                            <input className="my-auto mr-3" type="checkbox" name="paramsChecked" checked={paramsChecked} onChange={() => { setParamsChecked(!paramsChecked) }} />
+                            <div className="my-auto ">
+                                <h3 >
+                                    Params
+                                </h3>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col className="text-center">
+                        <div className="px-5 mx-auto form-check-inline" onClick={() => { setBodyChecked(!bodyChecked) }}>
+                            <input className="my-auto mr-3" type="checkbox" name="headerChecked" checked={bodyChecked} onChange={() => { setBodyChecked(!bodyChecked) }} />
+                            <div className="my-auto">
+                                <h3>
+                                    Body
+                                </h3>
+                            </div>
+                        </div>
                     </Col>
                 </Row>
             </div>
