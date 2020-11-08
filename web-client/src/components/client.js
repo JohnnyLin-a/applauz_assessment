@@ -1,6 +1,7 @@
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import React, { useState } from 'react';
@@ -9,7 +10,7 @@ import React, { useState } from 'react';
 const Client = () => {
     const [method, setMethod] = useState("GET");
 
-    const [header, setHeader] = useState({})
+    const [headers, setHeaders] = useState([])
     const [params, setParams] = useState([]);
     const [body, setBody] = useState({});
 
@@ -74,6 +75,52 @@ const Client = () => {
                                 </h3>
                             </div>
                         </div>
+                        {headerChecked && <div>
+                            {headers.map((header, index) =>
+                                <form key={index}>
+                                    <div className="form-group">
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <Button variant="danger" onClick={() => {
+                                                    let newHeaders = [...headers];
+                                                    newHeaders.splice(index, 1);
+                                                    setHeaders(newHeaders);
+                                                }}>Remove</Button>
+                                            </div>
+                                            <input type="text" className="form-control" placeholder="Key" value={header.key} onChange={e => {
+                                                let newHeaders = [...headers];
+                                                newHeaders[index].key = e.target.value;
+                                                setHeaders(newHeaders);
+                                            }} />
+                                            <input type="text" className="form-control" placeholder="Value" value={header.value} onChange={e => {
+                                                let newHeaders = [...headers];
+                                                newHeaders[index].value = e.target.value;
+                                                setHeaders(newHeaders);
+                                            }} />
+                                        </div>
+                                    </div>
+                                </form>
+                            )}
+                            <Row>
+                                <Col>
+                                    <Button block variant="success" onClick={() => {
+                                        const newHeaders = [{ key: "", value: "" }, ...headers]
+                                        setHeaders(newHeaders);
+                                    }}>
+                                        Add
+                                    </Button>
+                                </Col>
+                                <Col>
+                                    <Button block variant="primary" onClick={() => {
+                                        const newHeaders = [{ key: "api_key", value: (process.env.REACT_APP_API_KEY || "API_KEY_NOT_FOUND") }, ...headers]
+                                        setHeaders(newHeaders);
+                                    }}>
+                                        Add api_key
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </div>
+                        }
                     </Col>
                     <Col className="text-center">
                         <div className="px-5 mx-auto form-check-inline" onClick={() => { setParamsChecked(!paramsChecked) }}>
