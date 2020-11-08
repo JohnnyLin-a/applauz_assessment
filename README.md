@@ -81,4 +81,4 @@ exit
 - [x] Dockerize this app
 - [x] Use PostgresDB for persistent storage
 - [x] Add TravisCI implementation
-- [x] Depoloy on [Heroku](https://applauz-express-assessment.herokuapp.com/)
+- [x] Deploy on [Heroku](https://applauz-express-assessment.herokuapp.com/)
