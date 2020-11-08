@@ -6,6 +6,9 @@ services:
       dockerfile: ./Dockerfile.dev
     container_name: applauz_web_client
     restart: unless-stopped
+    tty: true
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
     volumes:
       - "/app/node_modules"
       - "./:/app"
