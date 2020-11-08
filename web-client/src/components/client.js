@@ -23,7 +23,6 @@ const Client = () => {
     const [bodyChecked, setBodyChecked] = useState(false);
 
     const [message, setMessage] = useState("");
-    const [error, setError] = useState(false);
 
     const [jsonParseError, setJsonParseError] = useState(false);
 
@@ -71,7 +70,6 @@ const Client = () => {
                 }
             } else {
                 setMessage("Check you body's JSON syntax");
-                setError(true);
                 return;
             }
         }
@@ -91,7 +89,7 @@ const Client = () => {
             </div>
             {message !== "" &&
                 <div>
-                    <Alert variant={error ? "danger" : "success"}>
+                    <Alert variant="danger">
                         {message}
                     </Alert>
                 </div>
