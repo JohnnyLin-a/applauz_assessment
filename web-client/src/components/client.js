@@ -131,6 +131,52 @@ const Client = () => {
                                 </h3>
                             </div>
                         </div>
+                        {paramsChecked && <div>
+                            {params.map((param, index) =>
+                                <form key={index}>
+                                    <div className="form-group">
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <Button variant="danger" onClick={() => {
+                                                    let newParams = [...params];
+                                                    newParams.splice(index, 1);
+                                                    setParams(newParams);
+                                                }}>Remove</Button>
+                                            </div>
+                                            <input type="text" className="form-control" placeholder="Key" value={param.key} onChange={e => {
+                                                let newParams = [...params];
+                                                newParams[index].key = e.target.value;
+                                                setParams(newParams);
+                                            }} />
+                                            <input type="text" className="form-control" placeholder="Value" value={param.value} onChange={e => {
+                                                let newParams = [...params];
+                                                newParams[index].value = e.target.value;
+                                                setParams(newParams);
+                                            }} />
+                                        </div>
+                                    </div>
+                                </form>
+                            )}
+                            <Row>
+                                <Col>
+                                    <Button block variant="success" onClick={() => {
+                                        const newParams = [{ key: "", value: "" }, ...params]
+                                        setParams(newParams);
+                                    }}>
+                                        Add
+                                    </Button>
+                                </Col>
+                                <Col>
+                                    <Button block variant="primary" onClick={() => {
+                                        const newParams = [{ key: "name", value: "" }, ...params]
+                                        setParams(newParams);
+                                    }}>
+                                        Add 'name' param
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </div>
+                        }
                     </Col>
                     <Col className="text-center">
                         <div className="px-5 mx-auto form-check-inline" onClick={() => { setBodyChecked(!bodyChecked) }}>
