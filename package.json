@@ -18,7 +18,7 @@
   "scripts": {
     "start": "node ./src/index.js",
     "test": "jest --runInBand",
-    "heroku-prebuild": "cd web-client && yarn global add react-scripts && yarn build"
+    "heroku-prebuild": "cd web-client && yarn global add react-scripts && yarn && yarn build"
   },
   "repository": {
     "type": "git",
