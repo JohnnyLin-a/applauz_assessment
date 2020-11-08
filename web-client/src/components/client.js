@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
 import React, { useState } from 'react';
 // import { networkRequest } from '../helpers/networkHelper';
 
@@ -23,6 +24,9 @@ const Client = () => {
     const [error, setError] = useState(false);
 
     const [jsonParseError, setJsonParseError] = useState(false);
+
+    const [responses, setResponses] = useState([]);
+
 
     const onClickSend = (e) => {
         console.log("onClickSend")
@@ -206,6 +210,24 @@ const Client = () => {
                         </div>}
                     </Col>
                 </Row>
+            </div>
+            <div className="mt-5">
+                <Row className="justify-content-between">
+                    <h2>Responses:</h2>
+                    <Button variant="danger" onClick={() => {
+                        setResponses([]);
+                    }}>Clear responses</Button>
+                </Row>
+                <div className="mt-3 container">
+                    {responses.map((response, index) =>
+                        <Row key={index}>
+                            <Card className="p-4" style={{ width: '100%' }}>
+                                <Card.Title>{"Status code: " + response.status}</Card.Title>
+                                <Card.Body>{response.data}</Card.Body>
+                            </Card>
+                        </Row>
+                    )}
+                </div>
             </div>
         </div>
     );
