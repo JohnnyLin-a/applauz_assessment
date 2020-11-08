@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  applauz_web_client:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    container_name: applauz_web_client
+    restart: unless-stopped
+    volumes:
+      - "/app/node_modules"
+      - "./:/app"
+    ports:
+      - "3001:3000"
