@@ -24,7 +24,7 @@ cp .env.example .env
 cp web-client/.env.example web-client/.env
 cp postgres.env.example postgres.env
 
-# Setup Docker environment (may require sudo)
+# Setup Docker environment (may require sudo and DEFINITELY requires patience)
 docker-compose up -d
 
 # SSH into database container (may require sudo)
