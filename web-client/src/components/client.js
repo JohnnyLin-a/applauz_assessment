@@ -97,7 +97,7 @@ const Client = () => {
             <div>
                 <Row>
                     <Col md={12}>
-                        <form>
+                        <form onSubmit={(e) => { e.preventDefault(); onClickSend() }}>
                             <div className="form-group">
                                 <div className="input-group">
                                     <div className="input-group-prepend">
