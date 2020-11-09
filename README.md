@@ -19,13 +19,13 @@ Alternatively to running this project locally, I have hosted this project on [He
 3. Navigate to the root of this project from a terminal
 4. Execute these commands (These are for linux, but other OS should be fairly similar):
 ```
-# Copy and rename example env files for proper ones.
+# Copy and rename example env files for proper ones. They are pre-configured.
 cp .env.example .env
 cp web-client/.env.example web-client/.env
 cp postgres.env.example postgres.env
 
 # Setup Docker environment (may require sudo)
-docker-compose -f docker-compose-dev.yml up -d
+docker-compose up -d
 
 # SSH into database container (may require sudo)
 docker exec -it applauz_db sh
@@ -34,11 +34,11 @@ docker exec -it applauz_db sh
 psql -d $POSTGRES_DB -U $POSTGRES_USER < ./applauz_database/create.sql
 exit
 ```
-5. Use Postman to use this app from http://localhost:3000/ or from [Heroku](https://applauz-express-assessment.herokuapp.com/)
+5. ~~Use Postman to use this app from http://localhost:3000/ or from [Heroku](https://applauz-express-assessment.herokuapp.com/)~~
 
-
-(There may be a web client to make it easier in the future)
-
+6. NEW UPDATE! There is now a web client to test the endpoints.\
+        Simply head over to http://localhost:3000/ or to the [Heroku link](https://applauz-express-assessment.herokuapp.com/).\
+        The web client is very similar to Postman.
 
 ### Using this app (with Postman)
 1. Enter the request URL including endpoint (http://localhost:3000/api/users/ or the [Heroku](https://applauz-express-assessment.herokuapp.com/) one)
@@ -75,11 +75,11 @@ exit
     - [x] All requests would need API Key authentication (can be hardcoded)
     - [x] Some documentation in your repo to explain how to run this service \
                 as well as how to use the endpoints would be appreciated
-    - [x] Bonus: unit testing
+    - [x] Bonus: unit testing (Check the [Travis](https://travis-ci.org/JohnnyLin-a/applauz_assessment) logs for tests results.)
 
 
 #### Personal add-ons:
 - [x] Dockerize this app
 - [x] Use PostgresDB for persistent storage
-- [x] Add TravisCI implementation
+- [x] Add [TravisCI](https://travis-ci.org/JohnnyLin-a/applauz_assessment) implementation
 - [x] Deploy on [Heroku](https://applauz-express-assessment.herokuapp.com/)
