@@ -1,0 +1,19 @@
+FROM node:fermium-alpine as client-builder
+
+WORKDIR /app
+
+COPY ./web-client/ ./
+
+RUN yarn install && yarn build
+
+FROM node:fermium-alpine
+
+WORKDIR /app
+
+COPY ./ ./
+
+COPY --from=client-builder /app/build ./web-client/build
+
+RUN yarn install
+
+CMD node ./src/index.js
