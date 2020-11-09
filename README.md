@@ -10,7 +10,7 @@ Alternatively to running this project locally, I have hosted this project on [He
 | ------------- | ------------- |
 | [Docker](https://docs.docker.com/get-docker/) | latest as of Nov-2020 |
 | [Docker-compose](https://docs.docker.com/compose/install/) (if using Linux only) | latest as of Nov-2020 |
-| [Postman](https://www.postman.com/downloads/) | latest as of Nov-2020 |
+| ~~[Postman](https://www.postman.com/downloads/)~~ (No longer needed) | latest as of Nov-2020 |
 
 
 #### Project setup
